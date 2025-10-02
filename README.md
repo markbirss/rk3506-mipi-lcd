@@ -1,16 +1,16 @@
-RK3506适配大显3.0/3.5英寸LCD显示屏
+RK3506 is compatible with 3.0/3.5-inch LCD displays
 
 
 
-## 概述
+## Overview
 
-为基于RK3506的开发板适配了两款MIPI DSI触摸屏：
+Two MIPI DSI touch screens are adapted for the RK3506-based development board:
 
-- 3.5英寸触摸屏，型号：D350T1013V1。
+- 3.5-inch touch screen, model: D350T1013V1.
 
 <img src="./docs/D350T1013V1.png" alt="image-20250914114916316" style="zoom:35%;" />
 
-- 3.0英寸触摸屏，型号：D300T9307V0。
+- 3.0-inch touch screen, model: D300T9307V0.。
 
   <img src="./docs/D300T9307V0.png" alt="image-20250914114916316" style="zoom:35%;" />
 
@@ -18,35 +18,35 @@ RK3506适配大显3.0/3.5英寸LCD显示屏
 
 
 
-这两款屏幕均为MIPI 2-lane接口，且具有相同的线序，目前两款屏幕的显示及触摸部分均已进行适配。
+Both screens have MIPI 2-lane interfaces and the same line sequence. Currently, the display and touch parts of the two screens have been adapted.
 
-显示部分的适配，主要包括屏参和屏幕上下电序列的设置。触摸部分的适配，经与厂商沟通，这两块屏幕的触摸屏驱动通用`ft5x06`，因为这个驱动运用非常广泛，基本上内核都会自带该驱动，因此基本上不涉及驱动代码的编写或移植，只需要确保编译内核时启用了该驱动（`TOUCHSCREEN_EDT_FT5X06=y`），并在设备树中按照触摸屏对应参数，如尺寸、中断引脚、坐标方向等，对其进行了正确配置即可。
-
-
-
-## 参考设计与代码
-
-此次，我使用`luckfox lyra zero w `开发板进行了测试，此项目包含适用于`luckfox lyra zero w`的软硬件参考设计。
+Adapting the display primarily involves setting screen parameters and the screen power-up and power-down sequence. Regarding touchscreen adaptation, after communicating with the manufacturer, we found that the touchscreen driver for both screens is ft5x06universal. This driver is widely used and typically comes pre-installed in every kernel, so there's little need to write or port driver code. You simply need to enable the driver when compiling the kernel `TOUCHSCREEN_EDT_FT5X06=y`） and correctly configure the touchscreen's parameters in the device tree, such as size, interrupt pins, and coordinate direction.
 
 
 
-### 屏幕转接板参考设计
+## Reference design and calculation
 
-#### 参考原理图
+Next, I will use `luckfox lyra zero w ` the open board to complete the test, including this item `luckfox lyra zero w`, and design the board for reference.
+
+
+
+### Reference design for folding screen board
+
+#### Reference principle encyclopedia
 
 ![原理图](./docs/SCH_Schematic_luckfox_lyra_1-LCD_driver_2025-09-14.svg)
 
-#### 参考PCB设计
+#### Reference PCB design
 
-pcb工程文件：`hardware/ProPrj_LuckfoxLyraLCD_2025-09-14.epro`
+PCB process text:hardware/ProPrj_LuckfoxLyraLCD_2025-09-14.epro
 
 
 
-### 设备树配置源代码
+### Arrangement source
 
-#### 3.0英寸屏幕设备树配置
+#### 3.0 English folding curtain arrangement
 
-参见：`software/sdk/kernel-6.1/arch/arm/boot/dts/rk3506-luckfox-lyra-dsi-d300t9307v0.dtsi`
+See：`software/sdk/kernel-6.1/arch/arm/boot/dts/rk3506-luckfox-lyra-dsi-d300t9307v0.dtsi`
 
 ```c
 /*
